@@ -8,7 +8,6 @@ function validateRegisterDoctor(obj) {
         email: Joi.string().email().required(),
         password: Joi.string().min(6).required(),
         image: Joi.string(),
-        patient: Joi.boolean().required(),
     });
     return schema.validate(obj);
 }
@@ -25,10 +24,10 @@ function validateLoginDoctor(obj) {
 // Validate update User 
 function validateUpdateDoctor(obj) {
     const schema = Joi.object({
-        email: Joi.string().trim().min(5).max(100).required(),
-        username:Joi.string().trim().min(2).max(200),
-        password:Joi.string().trim().min(6),
-        isAdmin:Joi.bool(),
+        name: Joi.string().required(),
+        email: Joi.string().email().required(),
+        password: Joi.string().min(6).required(),
+        image: Joi.string(),
     })
     return schema.validate(obj);
 }

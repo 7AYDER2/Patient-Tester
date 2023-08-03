@@ -65,3 +65,21 @@ router.post("/login",asyncHandler(async(req,res)=>{
     res.status(200).json({message:"Authentecated",token})
 }))
 
+router.put("/update",asyncHandler(async(req,res)=>{
+    const token = req.headers.authorization;
+   
+    const payload = jwt.verify(token,process.env.SECRETKEY)
+    await prisma.user.findFirst({
+      where:{
+          id:payload.id
+      },
+      data:{
+        name:req.body.name,
+        email:req.body.email, 
+        password:req.body.password,
+        image:,// add multer varible here
+      }
+    })
+    res.status(200).json()
+}))
+

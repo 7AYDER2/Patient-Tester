@@ -10,18 +10,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Doctor {
-  id       Int       @id @default(autoincrement())
-  name     String
-  email    String
-  password String
-  image    String?
-  patient  Patient[]
-}
-
 model Patient {
-  id            Int       @id @default(autoincrement())
-  name          String
+  id            String      @unique @default(cuid())
+  name          String      @unique
   gender        String
   maritalStatus String?
   birthDate     DateTime
@@ -30,37 +21,35 @@ model Patient {
   bloodType     String?
   smoker        String
   alcohole      String
-  Doctor        Doctor?   @relation(fields: [doctorId], references: [id])
-  doctorId      Int?
   results       results[]
 }
 
 model Test {
-  id            Int             @id @default(autoincrement())
-  name          String
-  price         String
-  unit          String
-  min           Float
-  max           Float
-  results       results[]
-  TestToResults TestToResults[]
+  id             String     @unique @default(cuid())
+  name           String
+  price          String
+  unit           String
+  min            Float
+  max            Float
+  results        results[]
+  TestToResults  TestToResults[]
 }
 
 model results {
-  id        Int     @id @default(autoincrement())
+  id             String     @unique @default(cuid())
   patient   Patient @relation(fields: [patientId], references: [id])
-  patientId Int
+  patientId  String
 
   test          Test            @relation(fields: [testId], references: [id])
-  testId        Int
+  testId        String
   TestToResults TestToResults[]
 }
 
 model TestToResults {
   id       Int     @id @default(autoincrement())
   value    String
-  testId   Int
+  testId   String
   test     Test    @relation(fields: [testId], references: [id])
-  resultId Int
+  resultId String
   result   results @relation(fields: [resultId], references: [id])
 }
