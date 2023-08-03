@@ -2,6 +2,7 @@ const express = require("express")
 const dotenv = require("dotenv")
 const logger = require("./Middlewares/logger")
 const {notFound,errorHandler} = require("./Middlewares/error")
+const helmet = require("helmet");
 
 dotenv.config()
 
@@ -10,6 +11,7 @@ const app = express()
 
 // Apply Middlewares
 app.use(express.json())
+app.use(helmet())
 
 // Custom MIddlewares
 app.use(logger)

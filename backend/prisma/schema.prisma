@@ -36,13 +36,14 @@ model Patient {
 }
 
 model Test {
-  id      Int       @id @default(autoincrement())
-  name    String
-  price   String
-  unit    String
-  min     Float
-  max     Float
-  results results[]
+  id            Int             @id @default(autoincrement())
+  name          String
+  price         String
+  unit          String
+  min           Float
+  max           Float
+  results       results[]
+  TestToResults TestToResults[]
 }
 
 model results {
@@ -50,6 +51,16 @@ model results {
   patient   Patient @relation(fields: [patientId], references: [id])
   patientId Int
 
-  test   Test @relation(fields: [testId], references: [id])
-  testId Int
+  test          Test            @relation(fields: [testId], references: [id])
+  testId        Int
+  TestToResults TestToResults[]
+}
+
+model TestToResults {
+  id       Int     @id @default(autoincrement())
+  value    String
+  testId   Int
+  test     Test    @relation(fields: [testId], references: [id])
+  resultId Int
+  result   results @relation(fields: [resultId], references: [id])
 }
