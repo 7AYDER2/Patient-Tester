@@ -4,7 +4,7 @@ const logger = require("./Middlewares/logger")
 const {notFound,errorHandler} = require("./Middlewares/error")
 const helmet = require("helmet");
 const patient = require("./Routes/Patient")
-
+const test = require("./Routes/Test")
 dotenv.config()
 
 // Init app
@@ -22,6 +22,7 @@ app.use(logger)
 
 // Routes
 app.use("/patient",patient)
+app.use("/test",test)
 
 //Running to server 
 const port = process.env.PORT || 8000
